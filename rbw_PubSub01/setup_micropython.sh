@@ -13,6 +13,11 @@ CERTS="rbwM5StickC02_cert_pem_file rbwM5StickC02_private_key_pem_file"
 
 [ -z "$PORT" ] && echo "ERROR: no USB device detected." && exit 16
 
+
+echo "This script depends on the stick being flashed with MicroPython.."
+echo "-----------------------------------------------------------------"
+
+
 for c in $CERTS ; do
     echo "Putting: $c..."
     ampy -p $PORT put "$CERTS_DIR/$c"

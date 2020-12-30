@@ -5,15 +5,15 @@
 #
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-import network,machine,time
+import network,machine,time,gc
 from umqtt.simple import MQTTClient
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 if not wlan.isconnected():
-    print('connecting to network...')
+    print('------------>Connecting to network...')
     wlan.connect(LAN_PASSWORD)
     while not wlan.isconnected(): pass
-print('network config:', wlan.ifconfig())
+print('------------>Network config:', wlan.ifconfig())
 
 
 CLIENT_ID   = "m5stack_test"
@@ -28,20 +28,39 @@ with open(KEY_PATH, 'r') as f: key1 = f.read()
 print("------------>sleeping for 3s....")
 time.sleep_ms(3000)
 
-print("Creating MQTT ......")
+
+print("------------>Freeing up Mem ......")
+gc.collect()
+print("Free mem: {} bytes".format(gc.mem_free()))
+
+print("------------>Creating MQTT ......")
 
 mqtt = MQTTClient(
-    client_id=CLIENT_ID,
-    server=ENDPOINT,
-    port=8883,
-    keepalive=10000,
-    ssl=True,
-    ssl_params={ "cert":cert1, "key":key1, "server_side":False })
+    client_id   = CLIENT_ID,
+    server      = ENDPOINT,
+    port        = 8883,
+    keepalive   = 10000,
+    ssl         = True,
+    ssl_params={ 
+        "cert":cert1, 
+        "key":key1, 
+        "server_side":False 
+        }
+    )
 
 
 print("Connecting to MQTT: {}".format(ENDPOINT))
 mqtt.connect()
-mqtt.publish( topic = MQTT_TOPIC, msg = 'Message from M5StickC', qos = 0 )
+for i in range(0, 5):
+    print("->......(sending count [{}/4])".format(i))
+    mqtt.publish( 
+        topic = MQTT_TOPIC, 
+        msg = 'Message from M5StickC (count [{}/4])'.format(i), 
+        qos = 0 
+    )
+    time.sleep_ms(2)
+
+
 print("Published to Topic:{}".format(MQTT_TOPIC))
 
 

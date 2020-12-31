@@ -2,6 +2,7 @@
 #  auth: rbw
 #  date: 20201229
 #  desc: 
+#   Some ideas taken from this thread: https://forum.micropython.org/viewtopic.php?t=5166
 #
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

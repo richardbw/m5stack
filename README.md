@@ -5,8 +5,11 @@ scripts etc. for M5Stack
 * [python test scripts]
 
 Files copied to device with [ampy](https://github.com/scientifichackers/ampy)
-not python scripts depend on a file `rbw_PubSub01/LAN_PASSWORD` being created containing:
-    'MY_ESS_ID', 'mypassword'
+_Note_: python scripts depend on a file `rbw_PubSub01/LAN_PASSWORD` being created containing:
+~~~~
+'MY_ESS_ID', 'mypassword'
+~~~~
+
 
 # Links
 - [Espressif ESP32 - getting started](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html)

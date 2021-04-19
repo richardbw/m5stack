@@ -52,7 +52,7 @@ head "5) Register verificationCert in AWS"
 aws iot register-ca-certificate                             \
     --ca-certificate    file://${CA_DATA_DIR}/rootCA.cert   \
     --verification-cert file://${CERTS}/verificationCert.signed.cert \
-    | jq | tee AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json
+    | jq '. + {"registrationCode":"'$AWS_REG_CODE'"}' | tee AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo "Done."

@@ -3,6 +3,7 @@ certs
 bak
 .*.swp
 LAN_PASSWORD
+awsiot/CA/ca_data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

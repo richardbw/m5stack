@@ -4,9 +4,6 @@
 #  date: 20210419
 #  desc: 
 #
-#openssl req -new -sha256 -key rootCA.key -nodes -out rootCA.csr -config rootCA_openssl.conf
-#openssl x509 -req -days 3650 -extfile rootCA_openssl.conf -extensions v3_ca -in rootCA.csr -signkey rootCA.key -out rootCA.pem 
-
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BASE_DIR=`cd "${0%/*}/." && pwd`
 

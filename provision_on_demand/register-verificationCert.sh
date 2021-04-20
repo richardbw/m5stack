@@ -49,10 +49,22 @@ openssl ca -batch  \
 
 
 head "5) Register verificationCert in AWS"
+REGISTER_DETAILS="$BASE_DIR/AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json"
 aws iot register-ca-certificate                             \
+    --set-as-active                                         \
+    --allow-auto-registration                               \
     --ca-certificate    file://${CA_DATA_DIR}/rootCA.cert   \
     --verification-cert file://${CERTS}/verificationCert.signed.cert \
-    | jq '. + {"registrationCode":"'$AWS_REG_CODE'"}' | tee AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json
+    | jq '. + {"registrationCode":"'$AWS_REG_CODE'"}' | tee $REGISTER_DETAILS
+
+
+
+CERT_ID=$(cat $REGISTER_DETAILS | jq -r '.certificateId')
+head "6) Activate cert $CERT_ID"
+#aws iot describe-ca-certificate --certificate-id $CERT_ID
+#aws iot update-ca-certificate --new-status ACTIVE --certificate-id $CERT_ID
+
+
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo "Done."

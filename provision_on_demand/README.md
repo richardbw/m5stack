@@ -7,7 +7,7 @@ $ ./setup_CA.sh
 
 Create verification cert, and upload to AWS:
 ```bash
-$ ./create-and-register-verificationCert.sh
+$ ./register-verificationCert.sh
 ```
 
 Clean-up locally generated files.  You will still need to delete from AWS

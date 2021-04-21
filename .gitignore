@@ -3,7 +3,8 @@ certs
 bak
 .*.swp
 LAN_PASSWORD
-awsiot/AWS_cert_register_details.*
+provision_on_demand/AWS_cert_register_details.*
+provision_on_demand/ca_data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

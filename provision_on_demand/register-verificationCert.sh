@@ -15,6 +15,9 @@ SUBJ="/C=UK/ST=London/L=London/O=barnes-webb.com/CN="
 
 
 [ ! -f "$OPENSSL_CONF" ] && echo "ERROR: Expecting CA conf file at: $OPENSSL_CONF"  && exit 5
+[ ! -f "${BASE_DIR}/AWS_IOT_ENVARS" ] && echo "ERROR: Expecting AWS_IOT_ENVARS file"  && exit 18
+
+source AWS_IOT_ENVARS
 
 head(){
     echo
@@ -48,24 +51,33 @@ openssl ca -batch  \
     -out     ${CERTS}/verificationCert.signed.cert  \
 
 
-head "5) Register verificationCert in AWS"
+head "5) Register verificationCert and registration-config template in AWS"
+echo "JITP_ROLEARN: $JITP_ROLEARN"
+REGISTER_CONFIG_TEMPL=$BASE_DIR/provisioning-template.json
 REGISTER_DETAILS="$BASE_DIR/AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json"
+cat <<EOT > $REGISTER_CONFIG_TEMPL
+{
+ "roleArn":"$JITP_ROLEARN",
+ "templateBody": "{ \"Parameters\" : { \"AWS::IoT::Certificate::Country\" : { \"Type\" : \"String\" }, \"AWS::IoT::Certificate::Id\" : { \"Type\" : \"String\" } }, \"Resources\" : { \"thing\" : { \"Type\" : \"AWS::IoT::Thing\", \"Properties\" : { \"ThingName\" : {\"Ref\" : \"AWS::IoT::Certificate::Id\"}, \"AttributePayload\" : { \"version\" : \"v1\", \"country\" : {\"Ref\" : \"AWS::IoT::Certificate::Country\"}} } }, \"certificate\" : { \"Type\" : \"AWS::IoT::Certificate\", \"Properties\" : { \"CertificateId\": {\"Ref\" : \"AWS::IoT::Certificate::Id\"}, \"Status\" : \"ACTIVE\" } }, \"policy\" : {\"Type\" : \"AWS::IoT::Policy\", \"Properties\" : { \"PolicyDocument\" : \"{\\\\\"Version\\\\\": \\\\\"2012-10-17\\\\\",\\\\\"Statement\\\\\": [{\\\\\"Effect\\\\\":\\\\\"Allow\\\\\",\\\\\"Action\\\\\": [\\\\\"iot:Connect\\\\\",\\\\\"iot:Publish\\\\\"],\\\\\"Resource\\\\\" : [\\\\\"*\\\\\"]}]}\" } } } }"
+}
+EOT
 aws iot register-ca-certificate                             \
     --set-as-active                                         \
     --allow-auto-registration                               \
-    --ca-certificate    file://${CA_DATA_DIR}/rootCA.cert   \
-    --verification-cert file://${CERTS}/verificationCert.signed.cert \
+    --ca-certificate      file://${CA_DATA_DIR}/rootCA.cert \
+    --verification-cert   file://${CERTS}/verificationCert.signed.cert \
+    --registration-config file://$REGISTER_CONFIG_TEMPL     \
     | jq '. + {"registrationCode":"'$AWS_REG_CODE'"}' | tee $REGISTER_DETAILS
 
 
 
-CERT_ID=$(cat $REGISTER_DETAILS | jq -r '.certificateId')
-head "6) Activate cert $CERT_ID"
+#CERT_ID=$(cat $REGISTER_DETAILS | jq -r '.certificateId')
+#head "6) Activate cert $CERT_ID"
 #aws iot describe-ca-certificate --certificate-id $CERT_ID
 #aws iot update-ca-certificate --new-status ACTIVE --certificate-id $CERT_ID
 
 
-
+            
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo "Done."
 #//EOF

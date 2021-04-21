@@ -13,6 +13,14 @@ CA_DATA_DIR=${BASE_DIR}/ca_data
 
 CERTS="$BASE_DIR/certs" 
 [ -d "$CERTS" ] && rm -r $CERTS && echo "Deleted $CERTS"
+
+REGISTER_CONFIG_TEMPL=$BASE_DIR/provisioning-template.json
+[ -f "$REGISTER_CONFIG_TEMPL" ] && rm $REGISTER_CONFIG_TEMPL && echo "Deleted $REGISTER_CONFIG_TEMPL"
+
+
+echo "
+NB: Manually delete certs at https://console.aws.amazon.com/iot/home?#/cacertificatehub
+"
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo "Done."
 #//EOF

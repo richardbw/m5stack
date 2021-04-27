@@ -11,15 +11,15 @@ CREDS=${1:-$BASE_DIR/certs/creds.txt}
 
 [ ! -f "$CREDS" ] && echo "ERROR: creds file not found ($CREDS) - specify on cmdline" && exit 12
 
-PUBKEY="$BASE_DIR/certs/ori_tf_1.key"
+PRIKEY="$BASE_DIR/certs/ori_tf_1.key"
 CRTKEY="$BASE_DIR/certs/ori_tf_1.pem"
 
-sed -n '3,11 p'  ${CREDS} > $PUBKEY
-sed -n '45,64 p' ${CREDS} > $CRTKEY
+sed -ne '15,41 p' ${CREDS} | sed -e 's/^ *//' > $PRIKEY
+sed -ne '45,64 p' ${CREDS} | sed -e 's/^ *//' > $CRTKEY
 
 cat <<EOT
 Wrote:
-PUBKEY: $PUBKEY
+PRIKEY: $PRIKEY
 CRTKEY: $CRTKEY
 
 EOT

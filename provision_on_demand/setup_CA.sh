@@ -3,31 +3,32 @@
 #  auth: rbw
 #  date: 20210419
 #  desc: 
-#
+# https://stackoverflow.com/questions/36920558/is-there-anyway-to-specify-basicconstraints-for-openssl-cert-via-command-line
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BASE_DIR=`cd "${0%/*}/." && pwd`
 
 CERTS="$BASE_DIR/certs" && [ ! -d "$CERTS" ] && mkdir $CERTS
-SUBJ="/C=UK/ST=London/L=London/O=barnes-webb.com/CN="
-ROOT_CN="Richard Barnes-Webb IoT CA"
-
-head(){
-    echo 
-    echo 
-    echo "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ="
-    echo "$*"
-}
 ROOT_KEY=$CERTS/rootCA.private.key
-head "1) Creating rootCA key: $ROOT_KEY"
-openssl genrsa -out $ROOT_KEY    # NB: add `-des3` to genrsa command to have privatekey with password
-
-
 ROOT_CERT=$CERTS/rootCA.pem.cert
-head "2) Creating rootCA cert: $ROOT_CERT"
-openssl req -new -x509 -sha256 -days 3650 -nodes \
-    -key $ROOT_KEY          \
-    -out $ROOT_CERT         \
-    -subj "${SUBJ}${ROOT_CN}"
+ROOT_CN="Richard Barnes-Webb IoT CA"
+SUBJ="/C=UK/ST=London/L=London/O=barnes-webb.com/CN="
+
+
+CONFIG="
+[req]
+distinguished_name=dn
+[ dn ]
+[ ext ]
+basicConstraints=CA:TRUE,pathlen:0
+"
+
+openssl req -new -newkey rsa:2048   \
+    -config <(echo "$CONFIG")       \
+    -nodes -x509                    \
+    -extensions ext                 \
+    -subj       "${SUBJ}${ROOT_CN}" \
+    -keyout     $ROOT_KEY           \
+    -out        $ROOT_CERT          \
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo "Done."

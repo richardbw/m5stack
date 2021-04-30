@@ -41,24 +41,29 @@ openssl req                     \
 
 
 head "3) Signing verificationCert key"
-openssl x509 -req -sha256       \
+
+#NBNBNBNB: hardcoded CA cert below:
+openssl x509  -req -sha256      \
     -days 500  -CAcreateserial  \
     -in    $VERFIC_CSR          \
-    -CA    $ROOT_CERT           \
+    -CA    certs/rootCA.pem.cert\
     -CAkey $ROOT_KEY            \
     -out   $VERFIC_CERT         \
 
 
+
 head "4) Register verificationCert and registration-config template in AWS"
 echo "JITP_ROLEARN: $JITP_ROLEARN"
+
 REGISTER_CONFIG_TEMPL=$BASE_DIR/provisioning-template.json
-REGISTER_DETAILS="$BASE_DIR/AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json"
 cat <<EOT > $REGISTER_CONFIG_TEMPL
 {
  "roleArn":"$JITP_ROLEARN",
  "templateBody": "{ \"Parameters\" : { \"AWS::IoT::Certificate::Country\" : { \"Type\" : \"String\" }, \"AWS::IoT::Certificate::Id\" : { \"Type\" : \"String\" } }, \"Resources\" : { \"thing\" : { \"Type\" : \"AWS::IoT::Thing\", \"Properties\" : { \"ThingName\" : {\"Ref\" : \"AWS::IoT::Certificate::Id\"}, \"AttributePayload\" : { \"version\" : \"v1\", \"country\" : {\"Ref\" : \"AWS::IoT::Certificate::Country\"}} } }, \"certificate\" : { \"Type\" : \"AWS::IoT::Certificate\", \"Properties\" : { \"CertificateId\": {\"Ref\" : \"AWS::IoT::Certificate::Id\"}, \"Status\" : \"ACTIVE\" } }, \"policy\" : {\"Type\" : \"AWS::IoT::Policy\", \"Properties\" : { \"PolicyDocument\" : \"{\\\\\"Version\\\\\": \\\\\"2012-10-17\\\\\",\\\\\"Statement\\\\\": [{\\\\\"Effect\\\\\":\\\\\"Allow\\\\\",\\\\\"Action\\\\\": [\\\\\"iot:Connect\\\\\",\\\\\"iot:Publish\\\\\"],\\\\\"Resource\\\\\" : [\\\\\"*\\\\\"]}]}\" } } } }"
 }
 EOT
+
+REGISTER_DETAILS="$BASE_DIR/AWS_cert_register_details.$(date +%Y-%m-%d_%Hh%M).json"
 aws iot register-ca-certificate                         \
     --set-as-active                                     \
     --allow-auto-registration                           \

@@ -16,43 +16,64 @@ VERFIC_KEY=$CERTS/verificationCert.private.key
 VERFIC_CSR=$CERTS/verificationCert.csr
 VERFIC_CERT=$CERTS/verificationCert.signed.cert
 
-[ ! -f "${BASE_DIR}/AWS_IOT_ENVARS" ] && echo "ERROR: Expecting AWS_IOT_ENVARS file"  && exit 18
+SUBJ="/C=UK/ST=London/L=London/O=barnes-webb.com/CN=Richard Barnes-Webb IoT CA"
+CA_CERT_CONFIG="
+[req]
+distinguished_name=dn
+[ dn ]
+[ ext ]
+basicConstraints=CA:TRUE,pathlen:0
+"
 
+
+[ ! -f "${BASE_DIR}/AWS_IOT_ENVARS" ] && echo "ERROR: Expecting AWS_IOT_ENVARS file"  && exit 18
 source AWS_IOT_ENVARS
 
-head(){
+
+head(){ #{{{
     echo
     echo
     echo "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ="
     echo "$*"
-}
+} #}}}
 
-head "1) Getting AWS IoT registration code..."
+head "1) Create CA Cert..." #{{{
+openssl req -new -newkey rsa:2048 -nodes -x509  \
+    -extensions ext                             \
+    -config     <(echo "$CA_CERT_CONFIG")       \
+    -subj       "${SUBJ}"                       \
+    -keyout     $ROOT_KEY                       \
+    -out        $ROOT_CERT                      \
+    
+#}}}    
+head "2) Getting AWS IoT registration code..." #{{{
 AWS_REG_CODE="$(aws iot get-registration-code | jq -r '.registrationCode')"
 echo "Code is: ${WHITE}$AWS_REG_CODE${OFF}"
 
+#}}}
+head "3) Creating CSR for Root key" #{{{
+openssl req                             \
+    -new                                \
+    -key $ROOT_KEY                      \
+    -out $VERFIC_CSR                    \
+    -subj "/CN=${AWS_REG_CODE}"         \
 
-head "2) Creating CSR for Root key"
-openssl req                     \
-    -new                        \
-    -key $ROOT_KEY              \
-    -out $VERFIC_CSR            \
-    -subj "/CN=${AWS_REG_CODE}" \
 
-
-head "3) Signing verificationCert key"
+#}}}
+head "4) Signing verificationCert key" #{{{
 
 #NBNBNBNB: hardcoded CA cert below:
-openssl x509  -req -sha256      \
-    -days 500  -CAcreateserial  \
-    -in    $VERFIC_CSR          \
-    -CA    certs/rootCA.pem.cert\
-    -CAkey $ROOT_KEY            \
-    -out   $VERFIC_CERT         \
+openssl x509  -req -sha256              \
+    -days 500  -CAcreateserial          \
+    -CA    certs/rootCA.pem.cert        \
+    -CAkey $ROOT_KEY                    \
+    -in    $VERFIC_CSR                  \
+    -out   $VERFIC_CERT                 \
 
 
 
-head "4) Register verificationCert and registration-config template in AWS"
+#}}}
+head "5) Register verificationCert and registration-config template in AWS" #{{{
 echo "JITP_ROLEARN: $JITP_ROLEARN"
 
 REGISTER_CONFIG_TEMPL=$BASE_DIR/provisioning-template.json
@@ -72,7 +93,9 @@ aws iot register-ca-certificate                         \
     --registration-config file://$REGISTER_CONFIG_TEMPL \
     | jq '. + {"registrationCode":"'$AWS_REG_CODE'"}' | tee $REGISTER_DETAILS
 
-
+echo "Cleaning up template ($REGISTER_CONFIG_TEMPL)"
+rm $REGISTER_CONFIG_TEMPL
+#}}}
 
 #CERT_ID=$(cat $REGISTER_DETAILS | jq -r '.certificateId')
 #head "6) Activate cert $CERT_ID"

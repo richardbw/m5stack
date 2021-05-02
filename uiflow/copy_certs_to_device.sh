@@ -8,7 +8,6 @@
 BASE_DIR=`cd "${0%/*}/." && pwd`
 
 PORT="$(ls /dev/cu.* | grep usb)"
-CERTS_DIR="$BASE_DIR/certs"
 CERTS="$*"
 DEV_CERT_DIR="/flash/res"
 

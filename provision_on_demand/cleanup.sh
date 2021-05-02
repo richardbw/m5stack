@@ -17,6 +17,14 @@ CERTS="$BASE_DIR/certs"
 REGISTER_CONFIG_TEMPL=$BASE_DIR/provisioning-template.json
 [ -f "$REGISTER_CONFIG_TEMPL" ] && rm $REGISTER_CONFIG_TEMPL && echo "Deleted $REGISTER_CONFIG_TEMPL"
 
+for f in $BASE_DIR/AWS_cert_register_detail* ; do
+    [ ! -f "$f" ] && continue
+    echo    "Delete $f?" 
+    echo -n "([Enter]=Yes/n=No/^C=quit): "
+    read yn
+    [ "$yn" != "n" ] && rm "$f"
+done
+
 
 echo "
 NB: Manually delete certs at https://console.aws.amazon.com/iot/home?#/cacertificatehub

@@ -41,7 +41,7 @@ cat <<EOT
 
 DETAILS
 -------
-Device cert:     ${GREEN}$CERTS/d_${DEVICE_NAME}.cert${OFF}
+Device cert:     ${GREEN}$CERTS/d_${DEVICE_NAME}.crt${OFF}
 Device key:      ${GREEN}$CERTS/d_${DEVICE_NAME}.key${OFF}
 AWS end-point:   ${GREEN}$(aws iot describe-endpoint | jq -r '.endpointAddress')${OFF}
 Port:            ${GREEN}8883${OFF}

@@ -1,0 +1,58 @@
+// Declare the AWS IoT Device SDK for JavaScript and Node library
+const awsiot = require('aws-iot-device-sdk')
+
+// Declare the thingName and the topic
+const thingName = 'my_first_thing'
+const shadow = `$aws/things/${thingName}/shadow`
+
+//Declare the aws IoT endpoint
+const endpoint = 'a3k7g2citz8r11-ats.iot.eu-west-2.amazonaws.com' // xxxxxxxxxxxxx-ats.iot.AWS_REGION.amazonaws.com
+
+const device = awsiot.device({
+   keyPath: `./certs/${thingName}_key.pem`,
+  certPath: `./certs/${thingName}_crt.pem`, 
+    caPath: `./certs/rootCA.pem`,
+  clientId: thingName,
+      host: endpoint 
+    })
+
+
+device.on('connect', () => {
+    console.log(`${thingName} is connected to ${endpoint}`)
+    
+    // subscribe to the the topic 
+    device.subscribe(`${shadow}/update/accepted`)
+    
+    publish_air_quality(device,`${shadow}/update`)
+    
+})
+
+const publish_air_quality = (device, topic) => {
+    setInterval(() => {
+    
+
+    let air_data = {
+        timestamp: Date.now(), 
+        pm25: Math.floor(Math.random() * (24 - 20)) + 20,
+        pm10: Math.floor(Math.random() * (10 - 5)) + 5,
+        o3: Math.floor(Math.random() * (20 - 15)) + 15,
+        no2: Math.floor(Math.random() * (20 - 15)) + 15,
+        temperature: Math.floor(Math.random() * (15 - 10)) + 10,
+        pressure: Math.floor(Math.random() * (1005 - 990)) + 990
+    }
+    console.log(`${thingName} publishing...  ${air_data}`)
+    
+        // publish in the Device shadow
+    device.publish(topic, JSON.stringify({ 
+            state:{
+                reported: {
+                    air_data
+                }
+            }
+    })) 
+    
+    },5000)
+
+    
+    
+}

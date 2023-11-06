@@ -1,0 +1,299 @@
+{
+  "date": "2023-11-02",
+  "time_of_day": "20:11",
+  "request_time": "2023-11-02T20:11:41+00:00",
+  "station_name": "Motspur Park",
+  "station_code": "tiploc:MOTSPRP",
+  "departures": {
+    "all": [
+      {
+        "mode": "train",
+        "service": "24673705",
+        "train_uid": "L22869",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:16",
+        "aimed_arrival_time": "20:16",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Guildford",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L22869:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24450",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:22",
+        "aimed_arrival_time": "20:21",
+        "aimed_pass_time": null,
+        "origin_name": "Chessington South",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24450:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673705",
+        "train_uid": "L22877",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:30",
+        "aimed_arrival_time": "20:30",
+        "aimed_pass_time": null,
+        "origin_name": "Guildford",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L22877:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24442",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:40",
+        "aimed_arrival_time": "20:40",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Chessington South",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24442:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24456",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:45",
+        "aimed_arrival_time": "20:45",
+        "aimed_pass_time": null,
+        "origin_name": "Chessington South",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24456:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673305",
+        "train_uid": "L21449",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "20:46",
+        "aimed_arrival_time": "20:46",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Dorking",
+        "source": "ATOC",
+        "category": "XX",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L21449:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673305",
+        "train_uid": "L21453",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:00",
+        "aimed_arrival_time": "21:00",
+        "aimed_pass_time": null,
+        "origin_name": "Dorking",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "XX",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L21453:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24448",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:09",
+        "aimed_arrival_time": "21:09",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Chessington South",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24448:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24460",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:15",
+        "aimed_arrival_time": "21:15",
+        "aimed_pass_time": null,
+        "origin_name": "Chessington South",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24460:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673705",
+        "train_uid": "L22879",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:18",
+        "aimed_arrival_time": "21:18",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Guildford",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L22879:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673705",
+        "train_uid": "L22884",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:30",
+        "aimed_arrival_time": "21:30",
+        "aimed_pass_time": null,
+        "origin_name": "Guildford",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L22884:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24453",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:39",
+        "aimed_arrival_time": "21:39",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Chessington South",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24453:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24466",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:45",
+        "aimed_arrival_time": "21:45",
+        "aimed_pass_time": null,
+        "origin_name": "Chessington South",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24466:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673305",
+        "train_uid": "L21455",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "21:46",
+        "aimed_arrival_time": "21:46",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Dorking",
+        "source": "ATOC",
+        "category": "XX",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L21455:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673305",
+        "train_uid": "L21460",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "22:00",
+        "aimed_arrival_time": "22:00",
+        "aimed_pass_time": null,
+        "origin_name": "Dorking",
+        "destination_name": "London Waterloo",
+        "source": "ATOC",
+        "category": "XX",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L21460:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      },
+      {
+        "mode": "train",
+        "service": "24673405",
+        "train_uid": "L24458",
+        "platform": null,
+        "operator": "SW",
+        "operator_name": "South Western Railway",
+        "aimed_departure_time": "22:09",
+        "aimed_arrival_time": "22:09",
+        "aimed_pass_time": null,
+        "origin_name": "London Waterloo",
+        "destination_name": "Chessington South",
+        "source": "ATOC",
+        "category": "OO",
+        "service_timetable": {
+          "id": "https://transportapi.com/v3/uk/train/service_timetables/L24458:2023-11-02.json?app_id=faeafed3&app_key=624b821315b1982a9141d11ef6479a65"
+        }
+      }
+    ]
+  }
+}
